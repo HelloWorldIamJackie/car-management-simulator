@@ -22,7 +22,12 @@ Drive to loading zone
 load 110 1f 112 2f ...
 ```
 
-Unload
+Leave
 ```
-unload 110 1f 112 2f ...
+leave 110 1f 112 2f ...
+```
+
+Clear all data
+```
+clear
 ```

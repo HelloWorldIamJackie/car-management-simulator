@@ -5,7 +5,7 @@ var app = express()
 var server = require('http').Server(app)
 var io = require('socket.io')(server)
 
-let { getTicket, tickets, activatedTickets, activateTicket } = require('./ticket')
+let { getTicket, tickets, activatedTickets, activateTicket, resetTicket } = require('./ticket')
 let Floor = require('./Floor')
 let GF = require('./gf')
 
@@ -35,6 +35,15 @@ let _1f = new Floor(3, 3, "1f")
 let _2f = new Floor(1, 1, "2f")
 let _3f = new Floor(3, 8, "3f")
 
+
+function reset(){
+  _gf.reset()
+  _1f.reset()
+  _2f.reset()
+  _3f.reset()
+  resetTicket()
+}
+
 let global_socket;
 
 io.on('connection', function (socket) {
@@ -58,7 +67,7 @@ io.on('connection', function (socket) {
               activateTicket(data.split(" ")[i+1])
           }
           break;
-        case "unload":
+        case "leave":
           let toUnloadCars = (data.split(" ").length-1)/2
           for(let i=0; i<toUnloadCars; i++){
             let floor
@@ -99,7 +108,6 @@ io.on('connection', function (socket) {
                 floor = _3f;
                 break
               default:
-
             }
             floor.load(data.split(" ")[i*2+1])
           }
@@ -119,17 +127,21 @@ io.on('connection', function (socket) {
                 floor = _2f
                 break;
               case "3f":
-                floor = _3f;
+                floor = _3f
                 break
             }
 
             floor.intoWaiting(data.split(" ")[i*2+1])
           }
           break
-        }
-        respondStatus()
+        case "clear":
+          reset()
+          break
+      }
+      respondStatus()
     }
     catch(e){
+      console.log(e)
       global_socket.emit('err', {})
     }
   });

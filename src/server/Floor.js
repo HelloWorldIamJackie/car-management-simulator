@@ -20,7 +20,8 @@ let Floor = class Floor{
 
     let come_loading_str = ""
     this.comeLoadingCars.map( car => {
-      come_loading_str += ` ${car.carNumber}`
+      let second = Math.ceil((car.time - moment().valueOf())/1000)
+      come_loading_str += ` (${car.carNumber}, ${car.attempt}t, ${second}s)`
     })
 
     let waiting_str = ""
@@ -30,7 +31,8 @@ let Floor = class Floor{
 
     let come_waiting_str = ""
     this.comeWaitingCars.map( car => {
-      come_waiting_str += ` ${car.carNumber}`
+      let second = Math.ceil((car.time - moment().valueOf())/1000)
+      come_waiting_str += ` (${car.carNumber}, ${second}s)`
     })
 
     return {
@@ -84,6 +86,7 @@ let Floor = class Floor{
     let car = this.getWaitingCar()
     if(car){
       car.time = moment().valueOf() + 40000
+      car.attempt == undefined? car.attempt=0 : car.attempt=1
       this.comeLoadingCars.push(car)
       this.waitingCars.map( (_car, index) => {
         if(_car.carNumber == car.carNumber){
@@ -91,6 +94,13 @@ let Floor = class Floor{
         }
       })
     }
+  }
+
+  reset(){
+    this.waitingCars = []
+    this.loadingCars = []
+    this.comeWaitingCars = []
+    this.comeLoadingCars = []
   }
 
   checking(){
@@ -105,8 +115,9 @@ let Floor = class Floor{
       //time expired
       if(moment().valueOf() > car.time){
         this.comeLoadingCars.splice(index, 1)
-        if(car.secondChance==null){
-          car.secondChance = true
+
+        if(car.attempt == 0){
+          console.log(`hi car: ${car.attempt}`)
           this.waitingCars.push(car)
         }
         this.assignCarToLoad()

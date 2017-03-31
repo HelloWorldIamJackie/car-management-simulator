@@ -100,6 +100,11 @@ function getTicket(carNumber, floor){
   ticketNumber++
 }
 
+function resetTicket(){
+  tickets.clear()
+  activatedTickets.splice(0, activatedTickets.length)
+}
+
 module.exports = {
   router,
   getTicket,
@@ -107,5 +112,6 @@ module.exports = {
   tickets,
   activatedTickets,
   activateTicket,
-  getNextCar
+  getNextCar,
+  resetTicket,
 };

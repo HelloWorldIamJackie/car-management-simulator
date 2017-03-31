@@ -15,7 +15,7 @@
     })
 
     socket.on('status', data => {
-      // console.log(data)
+      console.log(data)
       let { ticketPool, activatedTickets, _gf_status, _1f_status, _2f_status, _3f_status } = data
 
       $("#ticket_pool").text(ticketPool)
@@ -46,11 +46,11 @@
       $("#to_waiting").text(toWaiting)
     })
 
-    let command = "getTicket 110 1f 111 1f 112 1f 113 1f 114 1f 115 1f 116 1f 117 1f 118 2f 119 2f 120 2f 121 2f 122 2f 123 3f 124 3f 125 3f 126 3f 127 3f 128 3f 129 gf 130 gf 131 gf 132 gf"
-    socket.emit("command", command)
-
-    command = "activateTicket 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132"
-    socket.emit("command", command)
+    // let command = "getTicket 110 1f 111 1f 112 1f 113 1f 114 1f 115 1f 116 1f 117 1f 118 2f 119 2f 120 2f 121 2f 122 2f 123 3f 124 3f 125 3f 126 3f 127 3f 128 3f 129 gf 130 gf 131 gf 132 gf"
+    // socket.emit("command", command)
+    //
+    // command = "activateTicket 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 132"
+    // socket.emit("command", command)
 
     $(document).keypress(function(e){
         if (e.which == 13){
@@ -71,9 +71,9 @@
           <tr>
             <th>Floor</th>
             <th>Loading</th>
-            <th>Come Loading</th>
+            <th>Call Loading</th>
             <th>Waiting</th>
-            <th>Come Waiting</th>
+            <th>Call Waiting</th>
           </tr>
         </thead>
         <tbody>
@@ -132,7 +132,7 @@
     </div>
 
     <div class="row">
-      <h3>Screen</h3>
+      <h3>Diver App - Calling</h3>
       <table class="table table-bordered">
         <thead>
           <tr>

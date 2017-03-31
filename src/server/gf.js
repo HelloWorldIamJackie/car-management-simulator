@@ -8,6 +8,7 @@ let GF = class GF extends Floor{
     let car = getNextCar(this.floor)
     if(car){
       car.time = moment().valueOf() + 40000
+      car.attempt = 0
       this.comeLoadingCars.push(car)
     }
   }
