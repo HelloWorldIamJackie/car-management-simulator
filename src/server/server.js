@@ -7,7 +7,7 @@ var io = require('socket.io')(server)
 
 let { getTicket, tickets, activatedTickets, activateTicket } = require('./ticket')
 let Floor = require('./Floor')
-let GF = require('./GF')
+let GF = require('./gf')
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true, limit: '500mb' })); // support encoded bodies
