@@ -1,6 +1,6 @@
 <a href="https://tms-simulator.herokuapp.com/" target="_blank">Clicks to view DEMO</a>
 
-Command Examples:
+<h3>Command Examples:</h3>
 
 Get tickets
 ```
