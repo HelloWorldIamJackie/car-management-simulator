@@ -1,3 +1,5 @@
+<a href="https://tms-simulator.herokuapp.com/" target="_blank">Clicks to view DEMO</a>
+
 Command Examples:
 
 Get tickets
@@ -7,7 +9,7 @@ getTicket 110 1f 112 2f 113 3f 114 gf ...
 
 Activate tickets
 ```
-activateTickets 110 111 112 ...
+activateTicket 110 111 112 ...
 ```
 
 Drive to waiting zone
@@ -24,5 +26,3 @@ Unload
 ```
 unload 110 1f 112 2f ...
 ```
-
-<a href="https://tms-simulator.herokuapp.com/" target="_blank">Clicks to view DEMO</a>
