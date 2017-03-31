@@ -4,7 +4,7 @@
 
 Get tickets
 ```
-getTicket 110 1f 112 2f 113 3f 114 gf ...
+getTicket 110 1f 111 gf 112 2f 113 3f 114 gf ...
 ```
 
 Activate tickets
@@ -22,7 +22,7 @@ Drive to loading zone
 load 110 1f 112 2f ...
 ```
 
-Leave
+git
 ```
 leave 110 1f 112 2f ...
 ```

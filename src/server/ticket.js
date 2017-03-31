@@ -90,6 +90,7 @@ function getNextCar(floor){
 }
 
 function activateTicket(carNumber){
+  console.log("carrr:"+carNumber)
   let { ticketNumber, floor } = tickets.get(carNumber)
   activatedTickets.push({carNumber, ticketNumber, floor})
   tickets.delete(carNumber)
