@@ -22,7 +22,7 @@ Drive to loading zone
 load 110 1f 112 2f ...
 ```
 
-git
+Finish loading and leave the plant
 ```
 leave 110 1f 112 2f ...
 ```
