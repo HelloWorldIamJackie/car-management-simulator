@@ -8,8 +8,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script>
   $(document).ready( () => {
-    let socket = io.connect('http://localhost:3000')
-
+    // let socket = io.connect('http://localhost:3000')
+    let socket = io.connect('https://tms-simulator.herokuapp.com/')
     socket.on('err', data =>{
       alert("invalid command")
     })
