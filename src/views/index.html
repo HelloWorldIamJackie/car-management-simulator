@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simulation</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+  $(document).ready( () => {
+    let socket = io.connect('http://localhost:3000')
+
+    socket.on('err', data =>{
+      alert("invalid command")
+    })
+
+    socket.on('status', data => {
+      // console.log(data)
+      let { ticketPool, activatedTickets, _gf_status, _1f_status, _2f_status, _3f_status } = data
+
+      $("#ticket_pool").text(ticketPool)
+      $("#activated_ticket").text(activatedTickets)
+
+      $("#gf_loading").text(_gf_status.loading_str)
+      $("#gf_come_loading").text(_gf_status.come_loading_str)
+
+      $("#1f_loading").text(_1f_status.loading_str)
+      $("#1f_come_loading").text(_1f_status.come_loading_str)
+      $("#1f_waiting").text(_1f_status.waiting_str)
+      $("#1f_come_waiting").text(_1f_status.come_waiting_str)
+
+      $("#2f_loading").text(_2f_status.loading_str)
+      $("#2f_come_loading").text(_2f_status.come_loading_str)
+      $("#2f_waiting").text(_2f_status.waiting_str)
+      $("#2f_come_waiting").text(_2f_status.come_waiting_str)
+
+      $("#3f_loading").text(_3f_status.loading_str)
+      $("#3f_come_loading").text(_3f_status.come_loading_str)
+      $("#3f_waiting").text(_3f_status.waiting_str)
+      $("#3f_come_waiting").text(_3f_status.come_waiting_str)
+
+      let toLoading = _gf_status.come_loading_str + _1f_status.come_loading_str + _2f_status.come_loading_str + _3f_status.come_loading_str
+      let toWaiting = _1f_status.come_waiting_str + _2f_status.come_waiting_str + _3f_status.come_waiting_str
+
+      $("#to_loading").text(toLoading)
+      $("#to_waiting").text(toWaiting)
+    })
+
+    let command = "getTicket 110 1f 111 1f 112 1f 113 1f 114 1f 115 1f 116 1f 117 1f 118 2f 119 2f 120 2f 121 2f 122 2f 123 3f 124 3f 125 3f 126 3f 127 3f 128 3f 129 gf 130 gf 131 gf 132 gf"
+    socket.emit("command", command)
+
+    command = "activateTicket 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132"
+    socket.emit("command", command)
+
+    $(document).keypress(function(e){
+        if (e.which == 13){
+          let command = $("#command").val()
+          socket.emit("command", command)
+          $("#command").val("")
+        }
+    });
+  })
+</script>
+</head>
+<body>
+  <div id="content" class="container">
+    <div class="row">
+      <h3>Plant</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Floor</th>
+            <th>Loading</th>
+            <th>Come Loading</th>
+            <th>Waiting</th>
+            <th>Come Waiting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3F</td>
+            <td id="3f_loading"></td>
+            <td id="3f_come_loading"></td>
+            <td id="3f_waiting"></td>
+            <td id="3f_come_waiting"></td>
+          </tr>
+          <tr>
+            <td>2F</td>
+            <td id="2f_loading"></td>
+            <td id="2f_come_loading"></td>
+            <td id="2f_waiting"></td>
+            <td id="2f_come_waiting"></td>
+          </tr>
+          <tr>
+            <td>1F</td>
+            <td id="1f_loading"></td>
+            <td id="1f_come_loading"></td>
+            <td id="1f_waiting"></td>
+            <td id="1f_come_waiting"></td>
+          </tr>
+          <tr>
+            <td>GF</td>
+            <td id="gf_loading"></td>
+            <td id="gf_come_loading"></td>
+            <td id="gf_waiting"></td>
+            <td id="gf_come_waiting"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <h3>Ticket</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Cars</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ticket Pool</td>
+            <td id="ticket_pool"></td>
+          </tr>
+          <tr>
+            <td>Activated Ticket</td>
+            <td id="activated_ticket"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <h3>Screen</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th></th>
+            <th>To Loading</th>
+            <th>To Waiting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cars</td>
+            <td id="to_loading"></td>
+            <td id="to_waiting"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <label for="command"><h3>Command</h3></label>
+      <input type="text" id="command" class="form-control"/>
+        <!-- <button id="submit">submit</button> -->
+    </div>
+  </div>
+</body>
+</html>
